@@ -8,7 +8,6 @@
 }
 
 body {
-    background: #0f1729;
     color: #e6f7ff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
@@ -19,6 +18,20 @@ body {
     overflow: hidden;
     padding: 10px;
     position: relative;
+    background: none;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    background: linear-gradient(to bottom, #000000, #87CEEB);
+    filter: blur(20px);
+    z-index: -1;
+    pointer-events: none;
 }
 
 .copyright {
@@ -367,4 +380,4 @@ h1 {
     #game-container {
         height: 80vh; /* Adjust container height */
     }
-}
+    }
