@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Crystal Arrow Crusher</title>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" as="script">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <h1>CRYSTAL ARROW CRUSHER</h1>
+        <div class="subtitle">Break falling stones & collect special gems!</div>
+    </div>
+    
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+        
+        <div id="ui-overlay">
+            <div class="score-container">
+                <div class="score-title">Score</div>
+                <div class="score-value" id="score">0</div>
+            </div>
+            
+            <div class="level-container">
+                <div class="level-title">Level</div>
+                <div class="level-value" id="level">1</div>
+            </div>
+            
+            <div class="multiplier" id="multiplier">x1</div>
+        </div>
+        
+        <div id="controls-area">
+            <div id="movement-area">
+                <div id="movement-indicator"></div>
+            </div>
+            <div id="shoot-btn">
+                <i class="fas fa-bolt"></i>
+            </div>
+        </div>
+        
+        <div id="start-screen">
+            <h2 class="screen-title">Crystal Arrow Crusher</h2>
+            <div class="instructions">
+                <h2>How to Play</h2>
+                <p>Destroy falling gems with your arrow to earn points!</p>
+                
+                <div class="touch-instruction">
+                    <div class="touch-icon"><i class="fas fa-hand-point-up"></i></div>
+                    <div>Touch and drag in the movement area to control the arrow</div>
+                </div>
+                
+                <div class="touch-instruction">
+                    <div class="touch-icon"><i class="fas fa-bolt"></i></div>
+                    <div>Press the shoot button to fire projectiles</div>
+                </div>
+                
+                <p>Special stones give bonus points:</p>
+                <p>- Amethyst: 5 points + 5x multiplier</p>
+                <p>- Diamond: 100 points + clear screen</p>
+                <p>Don't let stones reach the bottom!</p>
+            </div>
+            
+            <button class="btn" id="start-btn">Start Game</button>
+        </div>
+        
+        <div id="game-over">
+            <h2 class="screen-title">Game Over</h2>
+            <div class="final-score">Score: <span id="final-score">0</span></div>
+            <div class="subtitle">You reached level <span id="final-level">1</span></div>
+            <button class="btn" id="restart-btn">Play Again</button>
+            <button class="btn" id="menu-btn">Main Menu</button>
+        </div>
+    </div>
+    
+    <div class="copyright">© 2023 Rasin. All rights reserved.</div>
+
+    <script src="script.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</body>
+</html>

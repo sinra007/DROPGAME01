@@ -1,0 +1,370 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background: #0f1729;
+    color: #e6f7ff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 10px;
+    position: relative;
+}
+
+.copyright {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    z-index: 100;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 10px;
+    z-index: 20;
+    width: 100%;
+    max-width: 800px;
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin-bottom: 5px;
+    background: linear-gradient(45deg, #00ccff, #0066ff, #cc00ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(0, 200, 255, 0.3);
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: #4dcbff;
+    margin-bottom: 15px;
+}
+
+#game-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    height: 70vh;
+    max-height: 600px;
+    margin: 0 auto;
+    box-shadow: 0 0 20px rgba(0, 150, 255, 0.3);
+    border-radius: 16px;
+    overflow: hidden;
+    background: radial-gradient(circle at center, #0a1929 0%, #050b15 100%);
+    z-index: 10;
+}
+
+#game-canvas {
+    display: block;
+    width: 100%;
+    height: 80%; /* 80% for game, 20% for controls */
+}
+
+#ui-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80%; /* Match canvas height */
+    pointer-events: none;
+    z-index: 15;
+}
+
+.score-container {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(0, 15, 30, 0.7);
+    padding: 10px 15px;
+    border-radius: 15px;
+    border: 2px solid rgba(0, 200, 255, 0.5);
+    box-shadow: 0 0 10px rgba(0, 200, 255, 0.2);
+    text-align: center;
+    backdrop-filter: blur(3px);
+}
+
+.score-title {
+    font-size: 14px;
+    color: #4dccff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+}
+
+.score-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.level-container {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 15, 30, 0.7);
+    padding: 10px 15px;
+    border-radius: 15px;
+    border: 2px solid rgba(255, 100, 200, 0.5);
+    box-shadow: 0 0 10px rgba(255, 100, 200, 0.2);
+    text-align: center;
+    backdrop-filter: blur(3px);
+}
+
+.level-title {
+    font-size: 14px;
+    color: #ff64c8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+}
+
+.level-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.multiplier {
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 18px;
+    color: #ffcc00;
+    font-weight: bold;
+    border: 2px solid rgba(255, 204, 0, 0.5);
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s;
+    backdrop-filter: blur(3px);
+}
+
+#controls-area {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20%;
+    background: rgba(0, 10, 20, 0.7);
+    z-index: 15;
+    display: flex;
+    padding: 10px;
+    gap: 15px;
+    backdrop-filter: blur(5px);
+    border-top: 2px solid rgba(0, 100, 200, 0.5);
+}
+
+#movement-area {
+    flex: 1;
+    background: rgba(0, 30, 60, 0.3);
+    border-radius: 12px;
+    border: 2px solid rgba(0, 150, 255, 0.4);
+    position: relative;
+    overflow: hidden;
+    touch-action: none;
+}
+
+#movement-indicator {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background: rgba(0, 200, 255, 0.3);
+    border: 2px solid rgba(0, 200, 255, 0.6);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+#shoot-btn {
+    width: 80px;
+    height: 100%;
+    border-radius: 12px;
+    background: rgba(180, 0, 60, 0.7);
+    border: 2px solid rgba(255, 100, 150, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff4d8d;
+    font-size: 28px;
+    backdrop-filter: blur(5px);
+    transition: all 0.1s;
+    box-shadow: 0 0 15px rgba(255, 0, 100, 0.3);
+    pointer-events: auto;
+}
+
+#shoot-btn:active {
+    background: rgba(220, 0, 80, 0.8);
+    transform: scale(0.95);
+}
+
+#start-screen, #game-over {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(5, 11, 21, 0.95);
+    z-index: 20;
+    text-align: center;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+}
+
+#game-over {
+    display: none;
+}
+
+.screen-title {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #4dccff;
+    text-shadow: 0 0 15px #00ccff;
+}
+
+.final-score {
+    font-size: 32px;
+    color: #ffcc00;
+    margin: 20px 0;
+}
+
+.btn {
+    background: linear-gradient(135deg, #00ccff, #0066ff);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 18px;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 12px 0;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 0 20px rgba(0, 102, 255, 0.7);
+    transition: all 0.3s;
+    min-width: 200px;
+    pointer-events: auto;
+}
+
+.btn:active {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 200, 255, 0.9);
+}
+
+.instructions {
+    background: rgba(0, 20, 40, 0.7);
+    border-radius: 15px;
+    padding: 15px;
+    margin: 15px 0;
+    border: 2px solid rgba(0, 200, 255, 0.5);
+    width: 90%;
+    max-width: 500px;
+}
+
+.instructions h2 {
+    color: #4dccff;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.instructions p {
+    margin: 8px 0;
+    font-size: 14px;
+    color: #e6e6ff;
+    text-align: left;
+}
+
+.touch-instruction {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    padding: 8px;
+    background: rgba(0, 50, 100, 0.3);
+    border-radius: 8px;
+}
+
+.touch-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 150, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+/* Performance optimization for mobile */
+#game-canvas, #movement-indicator {
+    will-change: transform;
+    transform: translate3d(0,0,0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 1.8rem; }
+    .subtitle { font-size: 0.9rem; }
+    #controls-area { height: 22%; padding: 8px; gap: 10px; }
+    #movement-indicator { width: 60px; height: 60px; }
+    #shoot-btn { width: 70px; font-size: 24px; }
+    .btn { padding: 10px 25px; font-size: 16px; min-width: 180px; }
+}
+
+@media (max-width: 480px) {
+    #movement-indicator { width: 50px; height: 50px; }
+    #shoot-btn { width: 60px; font-size: 22px; }
+    .screen-title { font-size: 28px; }
+    .final-score { font-size: 26px; }
+}
+
+@media (hover: hover) {
+    .btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(0, 200, 255, 0.9);
+    }
+}
+
+@media (pointer: fine) {
+    /* Hide touch controls on desktop */
+    #controls-area {
+        display: none !important;
+    }
+
+    #game-canvas {
+        height: 100%; /* Full height on desktop */
+    }
+
+    #ui-overlay {
+        height: 100%; /* Match on desktop */
+    }
+
+    #game-container {
+        height: 80vh; /* Adjust container height */
+    }
+}
